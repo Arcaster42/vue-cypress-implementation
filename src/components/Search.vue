@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <input class="input" type="text" v-model="searchValue" :disabled="isLoading" @keydown.enter="search" />
+    <input class="input" type="text" ref="input" v-model="searchValue" :disabled="isLoading" @keydown.enter="search" />
     <button class="button" :class="{loading: isLoading}" type="button" @click="search" :disabled="!searchValue.length && !isLoading">
       <span class="text" :class="{loading: isLoading}">Search</span>
     </button>
@@ -8,11 +8,12 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue';
+import { inject, nextTick, ref } from 'vue';
 
 const setError: (message: string) => void = inject('setError')!
 const emit = defineEmits(['updatePokemon'])
 
+const input = ref<HTMLInputElement | null>(null)
 const isLoading = ref(false)
 const searchValue = ref('')
 const search = async () => {
@@ -31,6 +32,8 @@ const search = async () => {
   } finally {
     searchValue.value = ''
     isLoading.value = false
+    await nextTick()
+    input.value?.focus()
   }
 }
 </script>
