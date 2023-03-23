@@ -2,8 +2,8 @@
   <div v-if="pokemon && sprite" class="wrapper">
     <span class="name">{{ pokemon }}</span>
     <div class="sprite-wrapper">
-      <img class="sprite original" :src="sprite" />
-      <img class="sprite" :src="sprite" />
+      <img class="sprite original" :src="sprite" data-cy="sprite-small" />
+      <img class="sprite" :src="sprite" data-cy="sprite-large" />
     </div>
   </div>
 </template>

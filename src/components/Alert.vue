@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" data-cy="alert-wrapper">
     <span>{{ message }}</span>
   </div>
 </template>

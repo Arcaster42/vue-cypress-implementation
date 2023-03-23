@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <input class="input" type="text" ref="input" v-model="searchValue" :disabled="isLoading" @keydown.enter="search" />
-    <button class="button" :class="{loading: isLoading}" type="button" @click="search" :disabled="!searchValue.length && !isLoading">
+    <input class="input" type="text" ref="input" v-model="searchValue" :disabled="isLoading" @keydown.enter="search" data-cy="search-input" />
+    <button class="button" :class="{loading: isLoading}" type="button" @click="search" :disabled="!searchValue.length && !isLoading" data-cy="search-button">
       <span class="text" :class="{loading: isLoading}">Search</span>
     </button>
   </div>
