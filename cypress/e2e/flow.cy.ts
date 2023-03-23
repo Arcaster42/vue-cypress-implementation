@@ -6,18 +6,16 @@ describe('flow test', () => {
     cy.contains('PokeSprite').should('be.visible')
   })
   it('searched pikachu', () => {
-    cy.intercept('GET', 'https://pokeapi.co/', (req) => {
-      req.continue((res) => {
-        expect(res.statusCode).to.eq(200)
-      })
-    })
+    cy.intercept('GET', 'https://pokeapi.co/api/v2/pokemon/pikachu').as('PIKACHU')
     cy.get('[data-cy="search-input"]').type('pikachu')
     cy.get('[data-cy="search-button"]').click()
+    cy.wait('@PIKACHU').then((intercept) => {
+      expect(intercept.response.statusCode).equal(200)
+    })
     cy.get('[data-cy="sprite-large"]').should('be.visible')
-    // cy.wait('@FETCH')
   })
   it('should 404 searching non-pokemon', () => {
-    cy.intercept('GET', 'https://pokeapi.co/', (req) => {
+    cy.intercept('GET', 'https://pokeapi.co/api/v2/pokemon/**', (req) => {
       req.continue((res) => {
         expect(res.statusCode).to.eq(404)
       })
